@@ -26,13 +26,14 @@ export default function LinkList({ links }: { links: LinkItem[] }) {
   };
 
   return (
-    <ul className="mt-10 flex w-full flex-col gap-5">
-      {links.map((link) => (
+    <ul className="mt-8 flex w-full flex-col gap-3">
+      {links.map((link, i) => (
         <li key={link.id}>
           <LinkCard
             link={link}
             count={counts[link.id]}
             onClick={handleClick}
+            delay={`${0.3 + i * 0.1}s`}
           />
         </li>
       ))}

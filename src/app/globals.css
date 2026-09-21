@@ -10,5 +10,129 @@ html.dark {
 }
 
 body {
-  @apply bg-zinc-50 text-zinc-900 antialiased transition-colors dark:bg-zinc-950 dark:text-zinc-50;
+  @apply min-h-screen overflow-x-hidden text-zinc-900 antialiased transition-colors dark:text-zinc-50;
+  font-family:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", sans-serif;
+  background: linear-gradient(135deg, #eef2ff 0%, #fdf2f8 100%);
+  background-attachment: fixed;
+}
+html.dark body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  background-attachment: fixed;
+}
+
+/* 배경 뒤 블러 원형 장식 */
+.bg-orb {
+  @apply pointer-events-none fixed -z-10 rounded-full;
+  filter: blur(80px);
+  opacity: 0.55;
+}
+.bg-orb-1 {
+  width: 22rem;
+  height: 22rem;
+  top: -6rem;
+  left: -6rem;
+  background: #a5b4fc;
+}
+.bg-orb-2 {
+  width: 20rem;
+  height: 20rem;
+  right: -5rem;
+  bottom: -5rem;
+  background: #f9a8d4;
+}
+html.dark .bg-orb {
+  opacity: 0.35;
+}
+html.dark .bg-orb-1 {
+  background: #6366f1;
+}
+html.dark .bg-orb-2 {
+  background: #ec4899;
+}
+
+/* 반투명 유리 카드 */
+.glass-card {
+  @apply rounded-[24px] border;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 8px 32px rgba(79, 70, 229, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+}
+html.dark .glass-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* 프로필 사진 그라데이션 링 */
+.avatar-ring {
+  @apply rounded-full p-[3px] transition-transform duration-300 hover:scale-105;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+}
+
+/* pill 태그 */
+.pill {
+  @apply inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium;
+  background: rgba(255, 255, 255, 0.4);
+  border-color: rgba(99, 102, 241, 0.2);
+  color: #4f46e5;
+}
+html.dark .pill {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #c7d2fe;
+}
+
+/* 링크 버튼: 카드보다 살짝 밝은 반투명 */
+.link-btn {
+  @apply flex w-full items-center gap-3 rounded-2xl border px-4 py-3.5 text-base font-medium transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.link-btn:hover {
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.15);
+}
+.link-btn .link-arrow {
+  @apply transition-transform duration-200;
+}
+.link-btn:hover .link-arrow {
+  transform: translateX(4px);
+}
+html.dark .link-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+html.dark .link-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* 로드 시 fade-up 모션 (animation-delay는 인라인 style로 지정) */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  opacity: 0;
+  animation: fade-up 0.5s ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    opacity: 1;
+    animation: none;
+  }
 }

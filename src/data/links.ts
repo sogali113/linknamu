@@ -2,6 +2,8 @@ export type Profile = {
   name: string;
   bio: string;
   avatar: string;
+  location: string;
+  role: string;
 };
 
 export type LinkItem = {
@@ -12,8 +14,10 @@ export type LinkItem = {
 
 export const profile: Profile = {
   name: "방회석",
-  bio: "서울메디케어 방회석",
+  bio: "플스택 개발자 | 요즘에는 ai 개발에 관심이 많아요",
   avatar: "/avatar.jpg",
+  location: "서울",
+  role: "플스택 개발자",
 };
 
 export const links: LinkItem[] = [
