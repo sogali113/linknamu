@@ -42,8 +42,10 @@ export function describeMongoError(err: unknown): { name: string; reason: string
   if (name === "MongoServerSelectionError" || /ENOTFOUND|ECONNREFUSED|querySrv|timed out/i.test(msg)) {
     return { name, reason: "클러스터 접속 실패: Atlas Network Access 또는 호스트명을 확인하세요" };
   }
+  // 메시지에 자격 증명이 섞여 있어도 노출되지 않도록 가립니다.
+  const safeMsg = msg.replace(/\/\/[^@\s]+@/g, "//***@").slice(0, 160);
   if (name === "MongoParseError") {
-    return { name, reason: "연결 문자열 형식 오류: MONGODB_URI 값을 확인하세요" };
+    return { name, reason: `연결 문자열 형식 오류 (${safeMsg})` };
   }
-  return { name, reason: msg.slice(0, 120) };
+  return { name, reason: safeMsg };
 }
