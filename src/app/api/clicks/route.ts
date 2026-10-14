@@ -5,12 +5,17 @@ import { links } from "@/data/links";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// GET: 링크별 클릭 수 조회
+// GET: 모든 링크의 클릭 수를 한 번에 조회 (기록이 없는 링크는 0)
 export async function GET() {
+  const counts: Record<string, number> = Object.fromEntries(
+    links.map((l) => [l.id, 0]),
+  );
   const col = await getClicksCollection();
-  if (!col) return NextResponse.json({});
+  if (!col) return NextResponse.json(counts);
   const docs = await col.find({}).toArray();
-  const counts = Object.fromEntries(docs.map((d) => [d.linkId, d.count]));
+  for (const d of docs) {
+    if (d.linkId in counts) counts[d.linkId] = d.count;
+  }
   return NextResponse.json(counts);
 }
 

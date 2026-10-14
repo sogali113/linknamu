@@ -69,11 +69,12 @@ export default function LinkCard({ link, count, onClick, delay }: Props) {
     >
       <LinkIcon id={link.id} />
       <span className="flex-1">{link.title}</span>
-      {typeof count === "number" && (
-        <span className="text-xs tabular-nums text-zinc-500 dark:text-zinc-400">
-          {count.toLocaleString("ko-KR")} 클릭
-        </span>
-      )}
+      <span
+        className="text-xs tabular-nums text-zinc-500 dark:text-zinc-400"
+        aria-label={`클릭 ${count ?? 0}회`}
+      >
+        {(count ?? 0).toLocaleString("ko-KR")}회
+      </span>
       <span aria-hidden className="link-arrow text-zinc-500 dark:text-zinc-400">
         →
       </span>
